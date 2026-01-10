@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/mcp-config.schema.json",
+  "description": "Recommended MCP servers for BrainDrive development",
+  "servers": {
+    "playwright": {
+      "description": "Browser automation for visual testing and UI verification",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-playwright"],
+      "notes": "Enables Claude to see and interact with the frontend during development"
+    },
+    "sqlite": {
+      "description": "Direct database access for BrainDrive's SQLite database",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-sqlite", "--db-path", "./backend/braindrive.db"],
+      "notes": "Allows Claude to query and inspect database state during development"
+    },
+    "github": {
+      "description": "GitHub integration for issues, PRs, and repo management",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-github"],
+      "env": {
+        "GITHUB_TOKEN": "YOUR_GITHUB_TOKEN"
+      },
+      "notes": "Enables issue-based development workflow"
+    }
+  },
+  "optional_servers": {
+    "filesystem": {
+      "description": "Enhanced file operations (usually not needed - Claude Code has built-in file tools)",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-filesystem", "--allowed-directories", "."]
+    },
+    "memory": {
+      "description": "Persistent memory across sessions",
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-memory"]
+    }
+  },
+  "installation_notes": [
+    "1. Copy the servers you want to use to your Claude Code config",
+    "2. Replace placeholders (like YOUR_GITHUB_TOKEN) with actual values",
+    "3. Adjust paths as needed for your project structure",
+    "4. Run 'claude mcp list' to verify servers are connected"
+  ],
+  "recommended_for_braindrive": [
+    "playwright - Essential for visual verification of UI changes",
+    "sqlite - Useful for inspecting database during development",
+    "github - Required for issue-based development workflow"
+  ]
+}

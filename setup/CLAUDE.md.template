@@ -1,0 +1,166 @@
+# CLAUDE.md Template for BrainDrive Projects
+
+Copy this file to your project root as `CLAUDE.md` and customize for your specific project.
+
+---
+
+# Project: [Project Name]
+
+## Overview
+
+[Brief description of this project - 1-2 sentences]
+
+**Type:** Plugin / Core / Service
+**Status:** Development / Alpha / Beta / Production
+
+## Quick Start
+
+```bash
+# Start backend
+cd backend && uvicorn main:app --reload --port 8005
+
+# Start frontend
+cd frontend && npm run dev
+
+# Run tests
+npm test && pytest
+```
+
+## Project Structure
+
+```
+[project-root]/
+├── frontend/          # React + TypeScript
+├── backend/           # FastAPI + SQLModel
+├── docs/              # Feature specs, designs, milestones
+└── tests/             # Test files
+```
+
+## BrainDrive Context
+
+This project follows BrainDrive patterns. Reference these for context:
+- [BrainDrive-Docs-Site](https://github.com/BrainDriveAI/BrainDrive-Docs-Site) - Documentation
+- [Plugin Dev Quickstart](https://docs.braindrive.ai/core/plugin-development/quickstart) - Plugin patterns
+- [Service Bridge Examples](https://github.com/BrainDriveAI?q=service-bridge) - Integration examples
+
+## Tech Stack
+
+### Frontend (BrainDrive Default)
+- React 18 + TypeScript
+- Material-UI (MUI) v5
+- Vite for bundling
+- Zod for validation
+
+### Backend (BrainDrive Default)
+- FastAPI
+- SQLModel (SQLAlchemy + Pydantic)
+- SQLite
+- Alembic for migrations
+
+### Plugins
+- Webpack Module Federation
+- Service Bridges for core integration
+
+## Development Patterns
+
+### File Organization
+- Components: `src/components/[FeatureName]/`
+- Services: `src/services/[name]Service.ts`
+- Types: `src/types/[name].ts`
+- Hooks: `src/hooks/use[Name].ts`
+
+### Naming Conventions
+- Plugin names: `kebab-case` (e.g., `my-plugin`)
+- Component IDs: `PascalCase` (e.g., `MyModule`)
+- **Important:** Plugin name ≠ module name
+
+### Service Bridges
+When integrating with BrainDrive core, use Service Bridges:
+- **API Bridge** - Backend HTTP calls
+- **Events Bridge** - Cross-plugin communication
+- **Theme Bridge** - Light/dark mode
+- **Settings Bridge** - User preferences
+- **Page Context Bridge** - Page metadata
+- **Plugin State Bridge** - Persistent state
+
+## Constraints
+
+### DO
+- Use Service Bridges for core integration
+- Follow existing patterns in the codebase
+- Write tests for new functionality
+- Use TypeScript types throughout
+- Handle errors gracefully with user feedback
+
+### DON'T
+- Modify core BrainDrive files directly (use plugins)
+- Import from relative paths like `../../../core` - use bridges
+- Push directly to main - use feature branches
+- Commit secrets or API keys
+- Skip database migrations for schema changes
+
+## Git Workflow
+
+- Create feature branches: `feature/[name]`
+- Commit after each milestone passes verification
+- PR against main when feature complete
+- Include milestone verification in PR description
+
+## Testing
+
+### Frontend
+```bash
+npm test                    # Run all tests
+npm test -- --coverage      # With coverage
+npx playwright test         # E2E tests
+```
+
+### Backend
+```bash
+pytest                      # Run all tests
+pytest --cov=app           # With coverage
+pytest tests/test_[name].py # Specific test file
+```
+
+## Common Commands
+
+| Task | Command |
+|------|---------|
+| Start dev | `npm run dev` (frontend), `uvicorn main:app --reload` (backend) |
+| Build | `npm run build` |
+| Test | `npm test` / `pytest` |
+| Lint | `npm run lint` |
+| Type check | `npx tsc --noEmit` |
+| Migration | `alembic revision --autogenerate -m "message"` |
+
+## Current Focus
+
+[What are you currently working on? Update this as you go.]
+
+- [ ] Current milestone/task
+- [ ] Next up
+
+## Learnings
+
+[Add patterns and lessons learned during development here. The /retro skill will help populate this.]
+
+### Patterns
+- [Pattern description]
+
+### Antipatterns to Avoid
+- [What to avoid and why]
+
+---
+
+## Workflow Skills
+
+This project uses the BrainDrive Claude Workflow system. Available skills:
+
+| Skill | Purpose |
+|-------|---------|
+| `/interview` | Start feature definition with deep interview |
+| `/feature-spec` | Generate feature specification |
+| `/milestone-check [n]` | Verify milestone success criteria |
+| `/retro` | Post-feature retrospective |
+
+See [braindrive-claude-workflow](https://github.com/davewaring/braindrive-claude-workflow) for full documentation.
