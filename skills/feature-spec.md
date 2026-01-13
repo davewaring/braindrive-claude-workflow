@@ -80,7 +80,7 @@ The skill outputs:
 1. A complete feature-spec.md file
 2. A summary of what's captured
 3. A list of open questions or TODOs
-4. Recommendation for next step (usually Phase 2: MVP Scoping or Phase 3: Technical Design)
+4. Recommendation for next step (usually `/plan` to create the execution plan)
 
 ## Example Output Summary
 
@@ -100,5 +100,5 @@ I've created `docs/feature-spec-user-settings.md` with:
 - [ ] What's the reset to defaults behavior?
 
 **Next Step:**
-Run Phase 3 (Technical Design) to define the architecture, or clarify open questions first.
+Run `/plan` to design the architecture and create the execution plan, or clarify open questions first.
 ```

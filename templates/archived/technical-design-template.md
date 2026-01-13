@@ -1,5 +1,11 @@
 # Technical Design: [Feature Name]
 
+> **ARCHIVED:** This template is kept for reference only. For new features, use `plan-template.md` which consolidates architecture, roadmap, and milestones into a single execution document. This reduces document drift and provides a single source of truth.
+>
+> See the AI Installer project (January 2025) for the rationale behind this consolidation.
+
+---
+
 > Based on feature spec dated [Date]
 
 ## Decision Summary

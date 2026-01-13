@@ -1,20 +1,20 @@
 # Milestone Check Skill
 
-Use this skill to verify that a milestone's success criteria are met.
+Use this skill to verify that a phase's success criteria are met. Works with the consolidated `plan.md` format.
 
 ## Trigger
-`/milestone-check [milestone number or name]`
+`/milestone-check [phase number or name]`
 
 ## Instructions
 
-When this skill is triggered, run all verification checks for the specified milestone and report results.
+When this skill is triggered, run all verification checks for the specified phase and report results.
 
 ### Process
 
-1. **Load Milestone Definition**
-   - Find the milestones.md file in the project
-   - Locate the specified milestone
-   - Extract all success criteria
+1. **Load Phase Definition**
+   - Find the `plan.md` file in the project (check `plans/active/`, `docs/`, or project root)
+   - Locate the specified phase in the Implementation Roadmap section
+   - Extract all success criteria from the phase's table
 
 2. **Run Each Verification**
    - Execute each verification command
@@ -26,17 +26,32 @@ When this skill is triggered, run all verification checks for the specified mile
    - Include relevant output for failures
    - Summarize overall status
 
-4. **Recommend Next Action**
-   - If all pass: Mark complete, suggest moving to next milestone
+4. **Update Plan Status**
+   - If all pass: Offer to mark phase complete in plan.md
+   - Update the phase status in the Schedule Overview table
+
+5. **Recommend Next Action**
+   - If all pass: Mark complete, suggest moving to next phase
    - If any fail: Identify the issue, suggest fix approach
    - If blocked: Flag for human help
 
+### Finding the Plan
+
+Look for `plan.md` in these locations (in order):
+1. `plans/active/[feature-name]/plan.md`
+2. `docs/plan.md`
+3. `plan.md` (project root)
+
+If multiple plans exist, ask user which one to check.
+
 ### Verification Execution
 
-For each criterion in the milestone:
+For each criterion in the phase's Success Criteria table:
 
 ```markdown
-| Criterion | Verification Command | Expected Result |
+| Criterion | Verification | Expected Result |
+|-----------|--------------|-----------------|
+| Build succeeds | `npm run build` | Exit code 0 |
 ```
 
 Run the verification command and check:
@@ -47,16 +62,16 @@ Run the verification command and check:
 ### Output Format
 
 ```markdown
-## Milestone Check: [Name]
+## Phase Check: [Name]
 
 ### Results
 
 | Criterion | Status | Details |
 |-----------|--------|---------|
-| Build succeeds | ✅ PASS | Exit code 0 |
-| No TS errors | ✅ PASS | Exit code 0 |
-| API responds | ❌ FAIL | 404 Not Found |
-| Tests pass | ⏭️ SKIP | Depends on API |
+| Build succeeds | PASS | Exit code 0 |
+| No TS errors | PASS | Exit code 0 |
+| API responds | FAIL | 404 Not Found |
+| Tests pass | SKIP | Depends on API |
 
 ### Summary
 - **Passed:** 2/4
@@ -74,6 +89,9 @@ Run the verification command and check:
 
 ### Recommendation
 Fix the API endpoint issue before proceeding. The endpoint should be defined in `backend/app/api/v1/endpoints/feature.py`.
+
+### Plan Update
+Would you like me to update plan.md to mark this phase as [In Progress / Complete]?
 ```
 
 ### Handling Different Verification Types
@@ -119,7 +137,7 @@ Skip a criterion if:
 
 ### Human Checkpoints
 
-For criteria marked as human checkpoints:
+For criteria marked as human checkpoints in plan.md:
 ```markdown
 ### Human Checkpoint Required
 
@@ -127,17 +145,40 @@ The following require manual verification:
 - [ ] Review: Does the UX feel right?
 - [ ] Review: Is the design consistent with BrainDrive?
 
-Please confirm these manually, then run `/milestone-check [number]` again or proceed to next milestone.
+Please confirm these manually, then run `/milestone-check [phase]` again or proceed to next phase.
+```
+
+### Updating Plan Status
+
+When all criteria pass, offer to update `plan.md`:
+
+1. **Schedule Overview table** - Change status from "Not Started" to "Complete"
+2. **Phase tasks** - Mark all `[ ]` as `[x]`
+3. **Updated date** - Update the "Updated:" line at the top
+
+Example update:
+```markdown
+Before:
+| 1 | Foundation | Dave W | Not Started |
+
+After:
+| 1 | Foundation | Dave W | **Complete** |
 ```
 
 ## Integration with Build Phase
 
 During build, use this skill:
-1. After implementing milestone code
+1. After implementing phase code
 2. Before committing
-3. Before moving to next milestone
+3. Before moving to next phase
 
 This creates the verification loop:
 ```
-Implement → /milestone-check → Fix if needed → Commit → Next milestone
+Implement → /milestone-check → Fix if needed → Commit → Next phase
 ```
+
+## Notes
+
+- This skill works with `plan.md` (consolidated format) not separate `milestones.md`
+- Phase numbers correspond to the Implementation Roadmap section
+- Success criteria should be in table format with Verification and Expected Result columns
