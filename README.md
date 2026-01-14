@@ -34,12 +34,13 @@ Execute the plan with autonomous verification using the verification loop.
 
 ## Quick Start
 
-1. **Install the skills** - Copy the `skills/` folder to your project's `.claude/` directory
-2. **Load the context** - Reference the BrainDrive context bundle in your CLAUDE.md
-3. **Run `/interview`** - Start the feature definition process
-4. **Run `/feature-spec`** - Generate the feature specification
-5. **Run `/plan`** - Generate the execution plan
-6. **Build** - Work through phases, using `/milestone-check` to verify each one
+1. **Configure permissions** - Copy the streamlined config from `setup/permissions.md` to `~/.claude/settings.local.json`
+2. **Install the skills** - Copy the `skills/` folder to your project's `.claude/` directory
+3. **Load the context** - Reference the BrainDrive context bundle in your CLAUDE.md
+4. **Run `/interview`** - Start the feature definition process
+5. **Run `/feature-spec`** - Generate the feature specification
+6. **Run `/plan`** - Generate the execution plan
+7. **Build** - Work through phases, using `/milestone-check` to verify each one
 
 ## Repository Structure
 
@@ -61,7 +62,7 @@ braindrive-claude-workflow/
 ├── setup/                       # Standard Claude Code setup
 │   ├── CLAUDE.md.template       # Template for BrainDrive projects
 │   ├── mcp-config.json          # Recommended MCP servers
-│   └── permissions.md           # Permission configuration guide
+│   └── permissions.md           # Permission configuration (streamlined config for auto-approve files, ask for commits)
 ├── context/                     # BrainDrive context bundle
 │   └── braindrive-context.md    # Key context for Claude
 └── docs/                        # Process documentation
@@ -122,6 +123,11 @@ This workflow system is designed to improve over time through the `/retro` skill
 - Added `/plan` skill for generating consolidated execution plans
 - Updated `/milestone-check` to work with plan.md format
 - Archived historical templates and phase docs for reference
+- **Updated `setup/permissions.md`** with streamlined permission configuration:
+  - Added `ask` permission type for git commit/push confirmation
+  - Added broad file operation permissions (`Read(**)`, `Edit(**)`, `Write(**)`)
+  - Added tool permissions (`Glob`, `Grep`, `Task(*)`)
+  - Documented three configuration scopes (user, project, local)
 
 ## License
 

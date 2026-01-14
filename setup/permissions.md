@@ -4,18 +4,70 @@ Configure these permissions in Claude Code to reduce friction during development
 
 ## How to Configure
 
-Permissions are set in `~/.claude/settings.json` or per-project in `.claude/settings.json`.
+Permissions are set in configuration files at different scopes:
+
+| Scope | File Location | Use Case |
+|-------|---------------|----------|
+| User-level | `~/.claude/settings.json` | Applies to all your projects |
+| Project-level | `.claude/settings.json` | Shared with team (commit to git) |
+| Local | `.claude/settings.local.json` | Personal overrides (don't commit) |
 
 ```json
 {
   "permissions": {
     "allow": [...],
+    "ask": [...],
     "deny": [...]
   }
 }
 ```
 
-## Recommended Allow List
+### Permission Types
+
+- **allow** - Auto-approve without prompting
+- **ask** - Always prompt for confirmation
+- **deny** - Block entirely
+
+## Streamlined Configuration (Recommended)
+
+For maximum productivity with safety on commits, use this configuration in `~/.claude/settings.local.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Edit(**)",
+      "Write(**)",
+      "Glob",
+      "Grep",
+      "Task(*)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm test:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
+```
+
+**What this achieves:**
+- All file operations (read/write/edit) happen without prompts
+- File searching (Glob, Grep) is instant
+- Common dev commands run automatically
+- Git commits and pushes still require your approval
+
+## Detailed Allow List
 
 These commands are safe to auto-approve for BrainDrive development:
 
