@@ -1,6 +1,9 @@
 # Milestone Check Skill
 
-Use this skill to verify that a phase's success criteria are met. Works with the consolidated `plan.md` format.
+Use this skill to verify that a phase's success criteria are met. Works with the `build-plan.md` format.
+
+**Framework Phase:** 4 - Build / 5 - Test
+**Input Location:** `BrainDrive-Library/projects/active/[project-name]/build-plan.md`
 
 ## Trigger
 `/milestone-check [phase number or name]`
@@ -12,7 +15,7 @@ When this skill is triggered, run all verification checks for the specified phas
 ### Process
 
 1. **Load Phase Definition**
-   - Find the `plan.md` file in the project (check `plans/active/`, `docs/`, or project root)
+   - Find the `build-plan.md` file (check BrainDrive-Library or local project)
    - Locate the specified phase in the Implementation Roadmap section
    - Extract all success criteria from the phase's table
 
@@ -35,14 +38,14 @@ When this skill is triggered, run all verification checks for the specified phas
    - If any fail: Identify the issue, suggest fix approach
    - If blocked: Flag for human help
 
-### Finding the Plan
+### Finding the Build Plan
 
-Look for `plan.md` in these locations (in order):
-1. `plans/active/[feature-name]/plan.md`
-2. `docs/plan.md`
-3. `plan.md` (project root)
+Look for `build-plan.md` in these locations (in order):
+1. `BrainDrive-Library/projects/active/[feature-name]/build-plan.md`
+2. `docs/build-plan.md` (local project)
+3. `build-plan.md` (project root)
 
-If multiple plans exist, ask user which one to check.
+If multiple build plans exist, ask user which one to check.
 
 ### Verification Execution
 
@@ -150,7 +153,7 @@ Please confirm these manually, then run `/milestone-check [phase]` again or proc
 
 ### Updating Plan Status
 
-When all criteria pass, offer to update `plan.md`:
+When all criteria pass, offer to update `build-plan.md`:
 
 1. **Schedule Overview table** - Change status from "Not Started" to "Complete"
 2. **Phase tasks** - Mark all `[ ]` as `[x]`
@@ -167,18 +170,26 @@ After:
 
 ## Integration with Build Phase
 
-During build, use this skill:
+During build (Phase 4), use this skill:
 1. After implementing phase code
 2. Before committing
 3. Before moving to next phase
 
 This creates the verification loop:
 ```
-Implement → /milestone-check → Fix if needed → Commit → Next phase
+Implement → /milestone-check → Fix if needed → Commit → Human checkpoint? → Next phase
 ```
+
+## Integration with Test Phase
+
+During test (Phase 5), use this skill for final verification:
+1. Run all phase checks to ensure nothing regressed
+2. Verify integration between phases works
+3. Complete any human checkpoints
 
 ## Notes
 
-- This skill works with `plan.md` (consolidated format) not separate `milestones.md`
+- This skill works with `build-plan.md` format
 - Phase numbers correspond to the Implementation Roadmap section
 - Success criteria should be in table format with Verification and Expected Result columns
+- Check human checkpoints section after all criteria pass

@@ -1,5 +1,6 @@
-# Feature Spec: [Feature Name]
+# Spec: [Feature Name]
 
+> **Save to:** `BrainDrive-Library/projects/active/[project-name]/spec.md`
 > Generated from `/interview` on [Date]
 
 ## Overview
@@ -122,4 +123,8 @@ When this feature is complete, users will be able to:
 
 - [ ] Reviewed by: _______________
 - [ ] Date: _______________
-- [ ] Ready for Technical Design: [ ]
+- [ ] Ready for Planning: [ ]
+
+---
+
+*Next: Generate `build-plan.md` using the `/plan` skill*

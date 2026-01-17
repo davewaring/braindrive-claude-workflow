@@ -1,6 +1,9 @@
 # Plan Skill
 
-Use this skill to generate a plan document from a feature spec. The plan is the single execution document that combines architecture, roadmap, and milestones.
+Use this skill to generate a build plan from a feature spec. The build plan is the single execution document that combines architecture, roadmap, and milestones.
+
+**Framework Phase:** 2 - Plan
+**Output Location:** `BrainDrive-Library/projects/active/[project-name]/build-plan.md`
 
 ## Trigger
 
@@ -8,17 +11,18 @@ Use this skill to generate a plan document from a feature spec. The plan is the 
 
 ## Instructions
 
-When this skill is triggered, generate a comprehensive plan document based on:
-1. The feature spec (if `feature-spec.md` exists)
+When this skill is triggered, generate a comprehensive build plan based on:
+1. The spec (if `spec.md` exists in Library)
 2. Any existing conversation context about technical decisions
 3. User clarification if needed
 
 ### Process
 
-1. **Review Feature Spec**
-   - Read the `feature-spec.md` to understand what we're building
+1. **Review Spec**
+   - Read the `spec.md` from BrainDrive-Library to understand what we're building
    - Identify the MVP scope and success criteria
    - Note any technical constraints mentioned
+   - Check related projects for patterns and decisions
 
 2. **Gather Technical Decisions** (if not already discussed)
    Use AskUserQuestion to clarify:
@@ -41,20 +45,20 @@ When this skill is triggered, generate a comprehensive plan document based on:
    - Order by dependency (what must be done first)
    - Include clear success criteria for each
 
-5. **Generate Plan**
-   - Read the `plan-template.md` from the templates folder
+5. **Generate Build Plan**
+   - Read `templates/build-plan-template.md` from the workflow repo
    - Fill in all sections based on gathered information
    - Mark incomplete sections with `[TODO: ...]`
+   - Include human checkpoints based on output types
 
 6. **Write to File**
-   - Create the plan in the project's docs or plans folder
-   - Name: `plan.md` (or `plan-[feature-name].md` if multiple features)
-   - Or ask user for preferred location
+   - Create the build plan in BrainDrive-Library: `projects/active/[project-name]/build-plan.md`
+   - Or ask user for preferred location if not using Library
 
 7. **Review with User**
    - Summarize the architecture and phases
    - Highlight any TODO items or open questions
-   - Ask if anything needs adjustment before build phase
+   - Ask if anything needs adjustment before Setup phase
 
 ### Plan Quality Checklist
 
@@ -69,10 +73,10 @@ Before presenting the plan, ensure:
 
 ### Template Reference
 
-Use the structure from `templates/plan-template.md`:
+Use the structure from `templates/build-plan-template.md`:
 
 ```markdown
-# Plan: [Name]
+# Build Plan: [Name]
 
 **Status:** [Not Started / In Progress / Complete]
 **Created:** [Date]
@@ -88,6 +92,7 @@ Use the structure from `templates/plan-template.md`:
 ## Technical Details
 ## Security Considerations
 ## Risks & Mitigations
+## Human Checkpoints
 ## Open Items
 ## Completion Checklist
 ```
@@ -114,18 +119,19 @@ For each phase, use this format for success criteria:
 ### Output
 
 The skill outputs:
-1. A complete `plan.md` file
+1. A complete `build-plan.md` file saved to Library
 2. A summary of the architecture
 3. A list of phases with their goals
-4. Any open questions or TODOs
-5. Confirmation ready to proceed to build phase
+4. Human checkpoints identified
+5. Any open questions or TODOs
+6. Confirmation ready to proceed to Setup phase
 
 ## Example Output Summary
 
 ```
-## Plan Generated
+## Build Plan Generated
 
-I've created `plans/active/user-settings/plan.md` with:
+I've created `BrainDrive-Library/projects/active/user-settings/build-plan.md` with:
 
 **Architecture:**
 - Plugin using Settings Bridge + API Bridge
@@ -137,15 +143,21 @@ I've created `plans/active/user-settings/plan.md` with:
 2. Backend Integration - API endpoints, database (4 tasks)
 3. Polish - Error handling, tests, docs (3 tasks)
 
+**Human Checkpoints:**
+- After Phase 2: UX review (user-facing UI)
+- After Phase 3: Final review before merge
+
 **Open Items:**
 - [ ] Decide: Should settings sync across devices?
 
 **Next Step:**
-Ready for Phase 3 (Build). Run `/milestone-check` after each phase to verify success criteria.
+Proceed to Setup phase (verify environment, permissions), then Build.
+Run `/milestone-check` after each phase to verify success criteria.
 ```
 
 ## Notes
 
-- The plan should be detailed enough that Claude can execute it autonomously
+- The build plan should be detailed enough that Claude can execute it autonomously
 - Focus on verifiable success criteria - if Claude can't verify it, flag for human checkpoint
-- Keep the plan as a living document - update status as phases complete
+- Keep the build plan as a living document - update status as phases complete
+- Include human checkpoints for user-facing outputs

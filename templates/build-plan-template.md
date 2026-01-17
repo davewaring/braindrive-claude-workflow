@@ -1,4 +1,6 @@
-# Plan: [Feature Name]
+# Build Plan: [Feature Name]
+
+> **Save to:** `BrainDrive-Library/projects/active/[project-name]/build-plan.md`
 
 **Status:** [Not Started / In Progress / Complete]
 **Created:** [Date]
@@ -9,9 +11,9 @@
 
 ## Overview
 
-[2-3 sentence summary of what we're building and why. Link to feature-spec.md for full requirements.]
+[2-3 sentence summary of what we're building and why.]
 
-See `feature-spec.md` for detailed requirements and user stories.
+See `spec.md` for detailed requirements and user stories.
 
 ---
 
@@ -217,6 +219,23 @@ class FeatureItem(SQLModel, table=True):
 
 ---
 
+## Human Checkpoints
+
+### After Phase 1
+- [ ] [Review item]
+
+### After Phase 2
+- [ ] [Review item]
+
+### After Phase 3
+- [ ] Final review before merge
+
+---
+
 ## Notes
 
 [Any additional context, learnings, or reference links]
+
+---
+
+*Use `/milestone-check [phase]` to verify each phase. Run `/retro` after completion.*

@@ -2,6 +2,9 @@
 
 Use this skill to generate a feature specification document from interview notes or conversation context.
 
+**Framework Phase:** 2 - Plan
+**Output Location:** `BrainDrive-Library/projects/active/[project-name]/spec.md`
+
 ## Trigger
 `/feature-spec [optional: feature name]`
 
@@ -16,6 +19,7 @@ When this skill is triggered, generate a comprehensive feature specification doc
 
 1. **Review Context**
    - Read through the conversation to gather all feature information
+   - Check BrainDrive-Library for related projects and decisions
    - Identify any gaps or unclear areas
 
 2. **Clarify Gaps** (if needed)
@@ -23,14 +27,14 @@ When this skill is triggered, generate a comprehensive feature specification doc
    - Focus only on blockers - don't re-interview
 
 3. **Generate Spec**
-   - Read the feature-spec-template.md from the templates folder
+   - Read the `templates/spec-template.md` from the workflow repo
    - Fill in all sections based on gathered information
    - Mark incomplete sections with `[TODO: ...]`
 
 4. **Write to File**
-   - Create the spec in the current project's docs folder
-   - Name: `feature-spec-[feature-name].md`
-   - Or ask user for preferred location
+   - Create the spec in BrainDrive-Library: `projects/active/[project-name]/spec.md`
+   - Create the project folder if it doesn't exist
+   - Or ask user for preferred location if not using Library
 
 5. **Review with User**
    - Summarize what was captured
@@ -51,10 +55,10 @@ Before presenting the spec, ensure:
 
 ### Template Reference
 
-Use the structure from `templates/feature-spec-template.md`:
+Use the structure from `templates/spec-template.md`:
 
 ```markdown
-# Feature Spec: [Name]
+# Spec: [Name]
 
 ## Overview
 ## Target User
@@ -77,17 +81,17 @@ For any section without clear information:
 ### Output
 
 The skill outputs:
-1. A complete feature-spec.md file
+1. A complete `spec.md` file saved to Library
 2. A summary of what's captured
 3. A list of open questions or TODOs
-4. Recommendation for next step (usually `/plan` to create the execution plan)
+4. Recommendation for next step (usually `/plan` to create the build plan)
 
 ## Example Output Summary
 
 ```
-## Feature Spec Generated
+## Spec Generated
 
-I've created `docs/feature-spec-user-settings.md` with:
+I've created `BrainDrive-Library/projects/active/user-settings/spec.md` with:
 
 **Captured:**
 - Clear overview of settings management feature
@@ -100,5 +104,5 @@ I've created `docs/feature-spec-user-settings.md` with:
 - [ ] What's the reset to defaults behavior?
 
 **Next Step:**
-Run `/plan` to design the architecture and create the execution plan, or clarify open questions first.
+Run `/plan` to design the architecture and create the build plan, or clarify open questions first.
 ```

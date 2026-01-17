@@ -1,133 +1,165 @@
-# BrainDrive Claude Code Workflow
+# BrainDrive AI Development Workflow
 
-A systematic approach to developing BrainDrive features using Claude Code, designed to maximize Claude's autonomous capability while maintaining quality and alignment with user intent.
+A systematic framework for AI-native software development that creates a flywheel of continuous improvement.
 
 ## Vision
 
-Claude Code should be able to build features start-to-finish with well-defined plans and success criteria, with humans handling only what Claude cannot yet handle.
+Claude Code should be able to build features start-to-finish with well-defined plans and success criteria, with humans handling only what Claude cannot yet handle. Every feature built improves the system for the next one.
 
-## The System: 2 Documents, 3 Phases
+## The Six-Phase Framework
 
-### Documents
+```
+Context → Plan → Setup → Build → Test → Learn
+                                          ↓
+                              (feeds back into Context)
+```
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| `feature-spec.md` | What we're building and why | Stakeholders, new collaborators |
-| `plan.md` | How we're building it (architecture + roadmap + milestones) | Engineering |
+| Phase | Purpose | Key Output |
+|-------|---------|------------|
+| **1. Context** | Establish foundation knowledge | Planning + Building context loaded |
+| **2. Plan** | Define what/how we're building | `spec.md` + `build-plan.md` |
+| **3. Setup** | Prepare execution environment | Permissions, tools, checkpoints defined |
+| **4. Build** | Execute with verification | Working code, phases completed |
+| **5. Test** | Verify requirements met | All criteria pass |
+| **6. Learn** | Capture and integrate learnings | System improves for next feature |
 
-This consolidated approach (refined January 2025) reduces document drift and provides a single source of truth for execution.
-
-### Phase 1: Feature Specification
-Use the `/interview` skill to surface hidden assumptions and fully define what you're building through 20-40+ in-depth questions. Define MVP scope.
-
-**Output:** `feature-spec.md`
-
-### Phase 2: Planning
-Design the architecture, make key technical decisions, and break work into testable phases with success criteria.
-
-**Output:** `plan.md`
-
-### Phase 3: Build
-Execute the plan with autonomous verification using the verification loop.
-
-**Output:** Working feature
-
-## Quick Start
-
-1. **Configure permissions** - Copy the streamlined config from `setup/permissions.md` to `~/.claude/settings.local.json`
-2. **Install the skills** - Copy the `skills/` folder to your project's `.claude/` directory
-3. **Load the context** - Reference the BrainDrive context bundle in your CLAUDE.md
-4. **Run `/interview`** - Start the feature definition process
-5. **Run `/feature-spec`** - Generate the feature specification
-6. **Run `/plan`** - Generate the execution plan
-7. **Build** - Work through phases, using `/milestone-check` to verify each one
+See [docs/framework.md](docs/framework.md) for the complete framework documentation.
 
 ## Repository Structure
 
 ```
 braindrive-claude-workflow/
-├── README.md                    # This file
-├── skills/                      # Claude Code skills
-│   ├── interview.md             # Deep interview using AskUserQuestion
-│   ├── feature-spec.md          # Generate spec from interview
-│   ├── plan.md                  # Generate plan from spec
-│   ├── milestone-check.md       # Verify phase success criteria
-│   └── retro.md                 # Post-feature retrospective
-├── templates/                   # Document templates
-│   ├── feature-spec-template.md # What/why template
-│   ├── plan-template.md         # How template (architecture + milestones)
-│   └── archived/                # Historical reference templates
-│       ├── technical-design-template.md
-│       └── milestones-template.md
-├── setup/                       # Standard Claude Code setup
-│   ├── CLAUDE.md.template       # Template for BrainDrive projects
-│   ├── mcp-config.json          # Recommended MCP servers
-│   └── permissions.md           # Permission configuration (streamlined config for auto-approve files, ask for commits)
-├── context/                     # BrainDrive context bundle
-│   └── braindrive-context.md    # Key context for Claude
-└── docs/                        # Process documentation
-    ├── phase-1-feature-spec.md  # Interview + MVP scoping
-    ├── phase-2-planning.md      # Architecture + milestones
-    ├── phase-3-build.md         # Execution with verification
-    └── archived/                # Historical 5-phase docs
+├── README.md                          # This file
+├── docs/
+│   ├── framework.md                   # Complete framework documentation
+│   └── phases/                        # Phase-specific guidance
+│       ├── 1-context.md
+│       ├── 2-plan.md
+│       ├── 3-setup.md
+│       ├── 4-build.md
+│       ├── 5-test.md
+│       └── 6-learn.md
+├── skills/                            # Claude Code executable skills
+│   ├── interview.md                   # Phase 2: Deep requirement discovery
+│   ├── feature-spec.md                # Phase 2: Generate spec from interview
+│   ├── plan.md                        # Phase 2: Generate build plan from spec
+│   ├── milestone-check.md             # Phase 4-5: Verify phase success
+│   └── retro.md                       # Phase 6: Capture learnings
+├── templates/                         # Document templates (outputs go to Library)
+│   ├── spec-template.md               # → Library/projects/active/[project]/spec.md
+│   ├── build-plan-template.md         # → Library/projects/active/[project]/build-plan.md
+│   └── archived/
+├── setup/
+│   ├── configure/                     # One-time setup
+│   │   ├── permissions.md             # Permission configuration
+│   │   ├── mcp-config.json            # MCP server configuration
+│   │   └── CLAUDE.md.template         # Project CLAUDE.md template
+│   └── prepare/                       # Per-feature setup
+│       └── checkpoints.md             # Checkpoint guidance
+└── context/                           # Reference context (real context lives in Library)
+    └── braindrive-context.md          # BrainDrive-specific patterns
 ```
+
+## Ecosystem
+
+This workflow is part of a three-repo system:
+
+| Repository | Role |
+|------------|------|
+| **BrainDrive-Library** | Content - specs, plans, decisions, transcripts, company context |
+| **BrainDrive-Librarian** | Tool - processes transcripts, maintains Library, materializes context |
+| **braindrive-claude-workflow** | Process - skills, templates, phase guidance (this repo) |
+
+**Content flow:**
+```
+Transcripts → Librarian → Library (context)
+                              ↓
+                    AI agents read context
+                              ↓
+                    Build using workflow skills
+                              ↓
+                    Learnings → back to Library
+```
+
+## Quick Start
+
+### First-Time Setup
+
+1. **Configure permissions** - Copy config from `setup/configure/permissions.md` to `~/.claude/settings.local.json`
+2. **Install skills** - Copy `skills/` folder to your project's `.claude/` directory
+3. **Set up CLAUDE.md** - Use `setup/configure/CLAUDE.md.template` as a starting point
+
+### Per-Feature Workflow
+
+1. **Context** - Read `AGENT.md` from BrainDrive-Library to load planning context
+2. **Plan**
+   - Run `/interview` - Deep requirement discovery (20-40+ questions)
+   - Run `/feature-spec` - Generate spec from interview
+   - Run `/plan` - Generate build plan from spec
+3. **Setup** - Review checkpoints, ensure environment ready
+4. **Build** - Execute phases, use `/milestone-check` after each
+5. **Test** - Verify all success criteria pass
+6. **Learn** - Run `/retro` to capture and integrate learnings
 
 ## Skills
 
-| Skill | Purpose |
-|-------|---------|
-| `/interview` | Triggers deep interview (20-40+ questions) to surface requirements |
-| `/feature-spec` | Generates feature spec from interview output |
-| `/plan` | Generates execution plan from feature spec |
-| `/milestone-check` | Runs success criteria verification for a phase |
-| `/retro` | Post-feature retrospective that improves the system |
+| Skill | Phase | Purpose |
+|-------|-------|---------|
+| `/interview` | Plan | Deep interview (20-40+ questions) to surface requirements |
+| `/feature-spec` | Plan | Generate feature spec from interview output |
+| `/plan` | Plan | Generate build plan with phases and success criteria |
+| `/milestone-check` | Build/Test | Verify phase success criteria |
+| `/retro` | Learn | Capture learnings and improve the system |
 
-## Why 2 Documents?
+## Key Documents
 
-Previous workflows used 3-5 separate documents (feature spec, technical design, milestones, build plan, etc.). Experience showed:
+Planning outputs live in BrainDrive-Library, not this repo:
 
-- **Multiple docs drift out of sync** - Architecture changes but milestones don't get updated
-- **Hard to find current truth** - Which doc has the latest status?
-- **Maintenance overhead** - More docs to keep aligned
+| Document | Location | Purpose |
+|----------|----------|---------|
+| `AGENT.md` | Library root | Boot file for AI agents |
+| `spec.md` | Library/projects/active/[project]/ | What we're building and why |
+| `build-plan.md` | Library/projects/active/[project]/ | How we're building it |
+| `decisions.md` | Library/projects/active/[project]/ | Key decisions and rationale |
 
-The 2-document approach provides:
-- **Clear separation** - `feature-spec.md` = what/why (for stakeholders), `plan.md` = how (for engineering)
-- **Single source of truth** - One place to check status and next steps
-- **Less drift** - Fewer documents to keep synchronized
+## Design Principles
 
-See the AI Installer project (January 2025) for the rationale behind this consolidation.
+1. **Context-First** - Never plan without understanding. Never build without a plan.
+2. **Autonomous with Checkpoints** - Maximize agent autonomy within phases. Humans review at boundaries.
+3. **Verifiable Success** - Every phase has executable commands and expected results.
+4. **User-Facing First** - Get human eyes on user-facing work early.
+5. **Continuous Learning** - Every feature makes the next one easier.
+6. **Single Source of Truth** - Specs and plans live in the Library.
 
 ## BrainDrive Defaults
 
-This workflow is pre-configured for BrainDrive development:
+Pre-configured for BrainDrive development:
 
 **Tech Stack:**
 - Frontend: React 18 + TypeScript + Material-UI + Vite
 - Backend: FastAPI + SQLModel + SQLite
 - Plugins: Webpack Module Federation + Service Bridges
 
-**Key Resources:**
+**Resources:**
 - [Plugin Template](https://github.com/BrainDriveAI/BrainDrive-PluginTemplate)
 - [Plugin Dev Quickstart](https://docs.braindrive.ai/core/plugin-development/quickstart)
-- [Service Bridge Examples](https://github.com/BrainDriveAI?q=service-bridge)
-
-## Contributing
-
-This workflow system is designed to improve over time through the `/retro` skill. After completing a feature, run `/retro` to capture learnings and suggest improvements to the system.
 
 ## Changelog
 
-### January 2025
+### January 2025 (v2)
+- Expanded from 3 phases to 6 phases (Context, Plan, Setup, Build, Test, Learn)
+- Added framework.md as comprehensive system documentation
+- Clarified repository responsibilities (Workflow vs Library vs Librarian)
+- Split Context into Planning Context and Building Context
+- Split Setup into Configure (one-time) and Prepare (per-feature)
+- Added checkpoint guidance for human review timing
+- Moved planning outputs to BrainDrive-Library
+
+### January 2025 (v1)
 - Consolidated from 5 phases to 3 phases
-- Reduced from 3 templates to 2 templates (feature-spec + plan)
-- Added `/plan` skill for generating consolidated execution plans
-- Updated `/milestone-check` to work with plan.md format
-- Archived historical templates and phase docs for reference
-- **Updated `setup/permissions.md`** with streamlined permission configuration:
-  - Added `ask` permission type for git commit/push confirmation
-  - Added broad file operation permissions (`Read(**)`, `Edit(**)`, `Write(**)`)
-  - Added tool permissions (`Glob`, `Grep`, `Task(*)`)
-  - Documented three configuration scopes (user, project, local)
+- Reduced templates from 3 to 2 (feature-spec + plan)
+- Added `/plan` skill
+- Streamlined permissions configuration
 
 ## License
 

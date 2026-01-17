@@ -1,6 +1,9 @@
 # Retro Skill
 
-Use this skill after completing a feature to capture learnings and improve the workflow system.
+Use this skill after completing a feature to capture learnings and improve the workflow system. This is the flywheel mechanism that makes the system improve over time.
+
+**Framework Phase:** 6 - Learn
+**Updates:** BrainDrive-Library (decisions, conventions), CLAUDE.md, workflow templates/skills
 
 ## Trigger
 `/retro`
@@ -12,7 +15,7 @@ When this skill is triggered, conduct a retrospective on the just-completed feat
 ### Process
 
 1. **Gather Context**
-   - Review the feature spec, technical design, and milestones
+   - Review the spec and build-plan from BrainDrive-Library
    - Look at the git history for this feature
    - Identify any issues or struggles encountered
 
@@ -30,8 +33,9 @@ When this skill is triggered, conduct a retrospective on the just-completed feat
    - Prioritize by impact
 
 5. **Update System** (with user approval)
-   - Update CLAUDE.md with new learnings
-   - Improve templates based on feedback
+   - Update BrainDrive-Library (decisions.md, conventions.md)
+   - Update project CLAUDE.md with new guardrails
+   - Improve workflow templates based on feedback
    - Add new patterns to documentation
 
 ### Retro Questions
@@ -103,16 +107,21 @@ Review these areas:
 - Avoid [antipattern] because [reason]
 ```
 
+#### For Library
+- Add [decision] to projects/[project]/decisions.md
+- Add [pattern] to braindrive/conventions.md
+
 #### For Templates
-- Add [field] to feature-spec-template.md
-- Add [check] to milestones-template.md
+- Add [field] to spec-template.md
+- Add [check] to build-plan-template.md
 
 #### For Skills
 - Update /interview to ask about [topic]
 - Add [criterion] to /milestone-check
 
 ### Action Items
-- [ ] Update CLAUDE.md with learnings
+- [ ] Update Library with learnings (decisions, conventions)
+- [ ] Update project CLAUDE.md with guardrails
 - [ ] Improve [template]
 - [ ] Add [pattern] to documentation
 
@@ -123,7 +132,21 @@ Shall I make these updates now?
 
 With user approval, update:
 
-**CLAUDE.md** - Add new patterns and lessons:
+**BrainDrive-Library** - Add learnings to centralized context:
+```markdown
+# In projects/[project]/decisions.md
+## Decision: [What was decided]
+**Context:** [Why this came up]
+**Decision:** [What we chose]
+**Rationale:** [Why]
+**Learned:** [What we'd do differently]
+
+# In braindrive/conventions.md
+## [Pattern Name] (Learned from [Feature])
+- [Pattern description]
+```
+
+**CLAUDE.md** - Add new guardrails and patterns:
 ```markdown
 ## Learnings from [Feature Name]
 
@@ -140,15 +163,25 @@ With user approval, update:
 
 **Docs** - Add new guidance or examples
 
-### Continuous Improvement Loop
+### The Flywheel Effect
 
 This skill creates a continuous improvement cycle:
 
 ```
-Build Feature → /retro → Update System → Next Feature (improved)
+Build Feature → /retro → Update Library + Workflow → Next Feature (improved)
+                              ↓
+                    Better context, better plans,
+                    fewer mistakes, faster builds
 ```
 
-Over time, the workflow system becomes more refined and features become easier to build.
+Over time:
+- More patterns in conventions.md
+- More guardrails in CLAUDE.md
+- Better questions in /interview
+- More complete templates
+- Richer business context
+
+Each feature makes the next one easier to build.
 
 ### When to Skip Retro
 
