@@ -1,6 +1,6 @@
 # BrainDrive AI Development Workflow
 
-A systematic framework for AI-native software development that creates a flywheel of continuous improvement.
+A systematic framework for AI-native software development that creates a flywheel of continuous improvement. This repo focuses on **development automation** - executing builds and capturing learnings.
 
 ## Vision
 
@@ -39,16 +39,11 @@ braindrive-claude-workflow/
 │       ├── 4-build.md
 │       ├── 5-test.md
 │       └── 6-learn.md
-├── skills/                            # Claude Code executable skills
-│   ├── interview.md                   # Phase 2: Deep requirement discovery
-│   ├── feature-spec.md                # Phase 2: Generate spec from interview
-│   ├── plan.md                        # Phase 2: Generate build plan from spec
+├── skills/                            # Development automation skills
 │   ├── milestone-check.md             # Phase 4-5: Verify phase success
 │   └── retro.md                       # Phase 6: Capture learnings
-├── templates/                         # Document templates (outputs go to Library)
-│   ├── spec-template.md               # → Library/projects/active/[project]/spec.md
-│   ├── build-plan-template.md         # → Library/projects/active/[project]/build-plan.md
-│   └── archived/
+├── templates/
+│   └── archived/                      # Archived templates (active ones in Library)
 ├── setup/
 │   ├── configure/                     # One-time setup
 │   │   ├── permissions.md             # Permission configuration
@@ -62,23 +57,24 @@ braindrive-claude-workflow/
 
 ## Ecosystem
 
-This workflow is part of a three-repo system:
+This workflow is part of a **two-repo system**:
 
 | Repository | Role |
 |------------|------|
-| **BrainDrive-Library** | Content - specs, plans, decisions, transcripts, company context |
-| **BrainDrive-Librarian** | Tool - processes transcripts, maintains Library, materializes context |
-| **braindrive-claude-workflow** | Process - skills, templates, phase guidance (this repo) |
+| **BrainDrive-Library** | Knowledge + Tools - specs, plans, decisions, transcripts, templates, skills, and the Librarian CLI |
+| **braindrive-claude-workflow** | Process - development automation skills, phase guidance (this repo) |
 
 **Content flow:**
 ```
-Transcripts → Librarian → Library (context)
-                              ↓
-                    AI agents read context
-                              ↓
-                    Build using workflow skills
-                              ↓
-                    Learnings → back to Library
+Transcripts → Librarian (tools/librarian/) → Library (context)
+                                                  ↓
+                                        AI agents read context
+                                                  ↓
+                                        Plan using Library skills
+                                                  ↓
+                                        Build using workflow skills
+                                                  ↓
+                                        Learnings → back to Library
 ```
 
 ## Quick Start
@@ -86,13 +82,13 @@ Transcripts → Librarian → Library (context)
 ### First-Time Setup
 
 1. **Configure permissions** - Copy config from `setup/configure/permissions.md` to `~/.claude/settings.local.json`
-2. **Install skills** - Copy `skills/` folder to your project's `.claude/` directory
+2. **Install skills** - Copy skills from Library (`system/skills/`) and this repo (`skills/`) to your project's `.claude/` directory
 3. **Set up CLAUDE.md** - Use `setup/configure/CLAUDE.md.template` as a starting point
 
 ### Per-Feature Workflow
 
 1. **Context** - Read `AGENT.md` from BrainDrive-Library to load planning context
-2. **Plan**
+2. **Plan** (skills in Library)
    - Run `/interview` - Deep requirement discovery (20-40+ questions)
    - Run `/feature-spec` - Generate spec from interview
    - Run `/plan` - Generate build plan from spec
@@ -103,17 +99,26 @@ Transcripts → Librarian → Library (context)
 
 ## Skills
 
+### This Repo (Development Automation)
+
+| Skill | Phase | Purpose |
+|-------|-------|---------|
+| `/milestone-check` | Build/Test | Verify phase success criteria |
+| `/retro` | Learn | Capture learnings and improve the system |
+
+### BrainDrive-Library (Planning)
+
 | Skill | Phase | Purpose |
 |-------|-------|---------|
 | `/interview` | Plan | Deep interview (20-40+ questions) to surface requirements |
 | `/feature-spec` | Plan | Generate feature spec from interview output |
 | `/plan` | Plan | Generate build plan with phases and success criteria |
-| `/milestone-check` | Build/Test | Verify phase success criteria |
-| `/retro` | Learn | Capture learnings and improve the system |
+| `/capture` | Learn | Capture session to Library |
+| `/librarian` | Context | Manage Library content |
 
 ## Key Documents
 
-Planning outputs live in BrainDrive-Library, not this repo:
+Planning outputs live in BrainDrive-Library:
 
 | Document | Location | Purpose |
 |----------|----------|---------|
@@ -145,6 +150,12 @@ Pre-configured for BrainDrive development:
 - [Plugin Dev Quickstart](https://docs.braindrive.ai/core/plugin-development/quickstart)
 
 ## Changelog
+
+### January 2025 (v3)
+- Consolidated to two-repo architecture (Library + Workflow)
+- Moved planning skills (interview, feature-spec, plan, capture) to BrainDrive-Library
+- Moved Librarian CLI to BrainDrive-Library/tools/librarian/
+- This repo now focuses on development automation (milestone-check, retro)
 
 ### January 2025 (v2)
 - Expanded from 3 phases to 6 phases (Context, Plan, Setup, Build, Test, Learn)
