@@ -287,22 +287,21 @@ Ensure learnings are available for future work:
 
 | Repository | Responsibility |
 |------------|----------------|
-| **BrainDrive-Library** | Content - specs, plans, decisions, context, transcripts |
-| **BrainDrive-Librarian** | Tool - processes transcripts, maintains Library, materializes context |
-| **braindrive-claude-workflow** | Process - skills, templates, phase guidance, this framework |
+| **BrainDrive-Library** | Knowledge + Tools - specs, plans, decisions, context, transcripts, Librarian CLI, planning skills |
+| **braindrive-claude-workflow** | Process - development automation skills (milestone-check, retro), phase guidance, this framework |
 
 ### Content Flow
 
 ```
-Transcripts/Sessions → Librarian → Library (specs, plans, decisions)
-                                      ↓
-                              Materialized to project repos
-                                      ↓
-                              AI agents read context
-                                      ↓
-                              Build features using workflow skills
-                                      ↓
-                              Learnings → back to Library
+Transcripts/Sessions → Librarian (Library/tools/) → Library (specs, plans, decisions)
+                                                          ↓
+                                                AI agents read context
+                                                          ↓
+                                                Plan using Library skills
+                                                          ↓
+                                                Build using workflow skills
+                                                          ↓
+                                                Learnings → back to Library
 ```
 
 ---
@@ -320,13 +319,14 @@ Transcripts/Sessions → Librarian → Library (specs, plans, decisions)
 
 ### Skills
 
-| Skill | Phase | Purpose |
-|-------|-------|---------|
-| `/interview` | Plan | Deep requirement discovery |
-| `/feature-spec` | Plan | Generate spec from interview |
-| `/plan` | Plan | Generate build plan from spec |
-| `/milestone-check` | Build/Test | Verify phase success criteria |
-| `/retro` | Learn | Capture and integrate learnings |
+| Skill | Phase | Purpose | Source |
+|-------|-------|---------|--------|
+| `/interview` | Plan | Deep requirement discovery | Library |
+| `/feature-spec` | Plan | Generate spec from interview | Library |
+| `/plan` | Plan | Generate build plan from spec | Library |
+| `/capture` | Learn | Capture session to Library | Library |
+| `/milestone-check` | Build/Test | Verify phase success criteria | Workflow |
+| `/retro` | Learn | Capture and integrate learnings | Workflow |
 
 ### Key Documents
 
